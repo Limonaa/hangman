@@ -35,12 +35,13 @@
             offset-md="1"
           >
             <v-autocomplete
+              v-model="wordToGuess"
               label="Choose word form list"
-              disabled
               class="mt-2"
               clearable
               rounded
               solo
+              :items="wordList"
             />
             <v-card
               class="mt-16"
@@ -52,7 +53,6 @@
               </v-card-title>
               <v-card-text>
                 <li>Choosing word from list</li>
-                <li>Better graphics (hangman)</li>
               </v-card-text>
             </v-card>
           </v-col>
@@ -168,7 +168,7 @@
         <v-card
           width="200"
           class="mt-16"
-          elevation="1"
+          elevation="3"
         >
           <v-card-title
             class="justify-center"
@@ -206,7 +206,7 @@ export default {
       'U','V','W','X','Y','Z'],
     selectedCorrect: [],
     selectedIncorrect: [],
-    hangmanPicture: "https://i.imgur.com/hRzVg1N.png",
+    hangmanPicture: "/HM01.png",
     index: 0,
     text: "",
     wordList: [],
@@ -230,6 +230,8 @@ export default {
             (letterInArray) => this.selectedCorrect.includes(letterInArray)
                 || letterInArray === ' ').length === this.wordsLetters.length
         ) {
+          this.selectedCorrect.push('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T',
+              'U','V','W','X','Y','Z');
           setTimeout(() => {
             this.text = "You won!";
             this.gameOver = true;
@@ -237,7 +239,7 @@ export default {
             this.wordToGuess = "";
             this.selectedCorrect = [];
             this.selectedIncorrect = [];
-            this.hangmanPicture = "https://i.imgur.com/hRzVg1N.png";
+            this.hangmanPicture = "/HM01.png";
           }, 1000);
           setTimeout(() => {
             this.isHidden = false;
@@ -254,39 +256,43 @@ export default {
       this.index ++;
       switch (this.index) {
         case 1:
-          this.hangmanPicture = "https://i.imgur.com/cQmLMDO.png";
+          this.hangmanPicture = "/HM02.png";
           break;
         case 2:
-          this.hangmanPicture = "https://i.imgur.com/sAeTvqP.png";
+          this.hangmanPicture = "/HM03.png";
           break;
         case 3:
-          this.hangmanPicture = "https://i.imgur.com/yHGrZqc.png";
+          this.hangmanPicture = "/HM04.png";
           break;
         case 4:
-          this.hangmanPicture = "https://i.imgur.com/UKiV6J9.png";
+          this.hangmanPicture = "/HM05.png";
           break;
         case 5:
-          this.hangmanPicture = "https://i.imgur.com/w7QJQFH.png";
+          this.hangmanPicture = "/HM06.png";
           break;
         case 6:
-          this.hangmanPicture = "https://i.imgur.com/KBMsCp9.png";
+          this.hangmanPicture = "/HM07.png";
           break;
         case 0:
-          this.hangmanPicture = "https://i.imgur.com/hRzVg1N.png";
+          this.hangmanPicture = "/HM01.png";
           break;
       }
       if (this.index === 6) {
-        this.text = "You lose!";
-        this.gameOver = true;
-        this.index = 0;
-        this.wordToGuess = "";
-        this.selectedCorrect = [];
-        this.selectedIncorrect = [];
-        this.hangmanPicture = "https://i.imgur.com/hRzVg1N.png";
+        this.selectedCorrect.push('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T',
+            'U','V','W','X','Y','Z');
         setTimeout(() => {
+          this.text = "You lose!";
+          this.gameOver = true;
+        }, 1000);
+        setTimeout(() => {
+          this.hangmanPicture = "/HM01.png";
+          this.index = 0;
+          this.wordToGuess = "";
+          this.selectedCorrect = [];
+          this.selectedIncorrect = [];
           this.isHidden = false;
           this.gameOver = false;
-        }, 2000);
+        }, 3000);
 
       }
     },
